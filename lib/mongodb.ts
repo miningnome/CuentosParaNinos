@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const uri = process.env.MONGODB_URI;
 
-let cached: { conn: typeof mongoose | null; promise: Promise<typeof mongoose> | null } =
+const cached: { conn: typeof mongoose | null; promise: Promise<typeof mongoose> | null } =
   (globalThis as typeof globalThis & {
     mongooseCache?: { conn: typeof mongoose | null; promise: Promise<typeof mongoose> | null };
   }).mongooseCache ?? { conn: null, promise: null };

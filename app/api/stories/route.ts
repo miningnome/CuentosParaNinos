@@ -4,9 +4,14 @@ import { profiles, stories, subscriptions } from "@/lib/in-memory-store";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
+// 2+ asegura tema semántico; 40 evita prompts extensos y reduce abuso de entrada.
+const MIN_THEME_LENGTH = 2;
+const MAX_THEME_LENGTH = 40;
+
 const storyRequestSchema = z.object({
   profileId: z.string().min(1),
-  theme: z.string().min(2).max(40),
+  // Mantiene prompts seguros y claros para la generación infantil.
+  theme: z.string().min(MIN_THEME_LENGTH).max(MAX_THEME_LENGTH),
 });
 
 export async function GET(request: NextRequest) {
